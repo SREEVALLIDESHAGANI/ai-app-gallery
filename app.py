@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, jsonify
 import os
 import openai
 from PIL import Image
+from waitress import serve
 
 app = Flask(__name__)
 
@@ -35,15 +36,8 @@ def home():
     return render_template("index.html")
 
 if __name__ == "__main__":
-    app.run(debug=True)
-from flask import Flask
+    # For local development, use Flask's built-in server (for debugging)
+    # app.run(debug=True)
 
-app = Flask(__name__)
-
-@app.route('/')
-def home():
-    return "Hello, Flask is running!"
-
-if __name__ == "__main__":
-    app.run(debug=True)
-
+    # For production, use Waitress to serve the app
+    serve(app, host='0.0.0.0', port=5000)
